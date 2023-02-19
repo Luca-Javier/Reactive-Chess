@@ -12,6 +12,7 @@ const ChessApp = () => {
   return (
     <section className="chess-container">
       <h1>CHESS</h1>
+
       <ChessBoard handleClick={handleClick} />
     </section>
   )
