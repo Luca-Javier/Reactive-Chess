@@ -1,0 +1,14 @@
+h1 {
+  font-size: min(7rem, calc(2rem + 8vw));
+  text-align: center;
+}
+
+.chess-container {
+  height: 100vh;
+  max-width: 1024px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
