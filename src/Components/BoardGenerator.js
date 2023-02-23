@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react"
+
 const piecesInitialBoard = [
   {
     piece: "♟",
@@ -62,49 +64,39 @@ const piecesInitialBoard = [
 ]
 
 const BoardGenerator = ({ handleClick }) => {
-  //? Ya no necesitaban keys. Porque no son generados
+  const [rows, setRows] = useState([])
+  const [columns, setColumns] = useState([])
+  const [isWhite, setIsWhite] = useState(true)
 
-  document.addEventListener("click", e => {
-    if (!e.target.matches(".column")) return
-
-    handleClick(e)
-  })
-
-  let cantBlocks = 1,
-    blocks = []
-  while (cantBlocks !== 65) {
-    let piece = null
+  const reFillPiece = () => {
+    // return objetc lenght=63 con piezas y sus data-nums
+    let pieces = []
 
     piecesInitialBoard.forEach(el => {
-      if (piece !== null) return
+      let piece = el.piece || "",
+        classs = el.class || "",
+        dataNum = el.numbers
 
-      if (el.numbers.includes(cantBlocks)) {
-        piece = el
-      }
+      pieces = [...pieces, { piece: el.piece, class: el.class }]
     })
-
-    if (piece === null) {
-      piece = { piece: "", class: "" }
-    }
-
-    console.log(cantBlocks / 2 === 0, cantBlocks, cantBlocks % 2)
-
-    let block = (
-      <div
-        key={cantBlocks}
-        data-num={cantBlocks}
-        className={`color-${cantBlocks % 2 === 0 ? "black" : "white"} ${
-          piece.class
-        }`}>
-        {piece.piece}
-      </div>
-    )
-
-    blocks.push(block)
-    cantBlocks++
   }
 
-  return <>{blocks.map(el => el)}</>
+  const generateColums = pieces => {
+    // return array lenght=63 con divs ya armados
+  }
+
+  const generateRows = () => {
+    //return columns while
+    //return array con 8 rows
+
+    isWhite ? setIsWhite(false) : setIsWhite(true)
+  }
+
+  useEffect(() => {
+    reFillPiece()
+  }, [])
+
+  return <>{rows.length === 63 || generateRows()}</>
 }
 
 export default BoardGenerator
