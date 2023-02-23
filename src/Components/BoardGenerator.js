@@ -91,40 +91,6 @@ const BoardGenerator = ({ handleClick }) => {
       </article>
     </>
   )
-
-  /*let cNum = 1
-
-  const generateRow = () => {
-    let allRows = []
-
-    for (let r = 1; r !== rows; r++) {
-      allRows.push(
-        <article
-          key={r - { r }}
-          classNameName={`row row-${r / 2 === 0 ? "white" : "black"}`}>
-          {generateColum(colums).map(el => el)}
-        </article>
-      )
-      cNum++
-    }
-
-    return allRows
-    // return <>{allRows.map(el => el)}</>
-  }
-
-  const generateColum = colums => {
-    let entireColum = []
-
-    for (let c = 1; c !== colums; c++) {
-      entireColum.push(<div key={`c${cNum}-${c}`}></div>)
-    }
-
-    return entireColum
-  }
-
-  //generateRow(rows, colums)
-
-  return <>{generateRow().map(el => el)}</>*/
 }
 
 export default BoardGenerator
