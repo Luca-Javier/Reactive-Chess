@@ -66,37 +66,68 @@ const piecesInitialBoard = [
 const BoardGenerator = ({ handleClick }) => {
   const [rows, setRows] = useState([])
   const [columns, setColumns] = useState([])
-  const [isWhite, setIsWhite] = useState(true)
+  const [isWhite, setIsWhite] = useState(false)
 
   const reFillPiece = () => {
     // return objetc lenght=63 con piezas y sus data-nums
     let pieces = []
 
-    piecesInitialBoard.forEach(el => {
-      let piece = el.piece || "",
-        classs = el.class || "",
-        dataNum = el.numbers
+    for (let dataNum = 1; dataNum < 65; dataNum++) {
+      let piece = {}
+      piecesInitialBoard.forEach(el => {
+        if (piece.class) return
 
-      pieces = [...pieces, { piece: el.piece, class: el.class }]
-    })
+        if (el.numbers.includes(dataNum))
+          piece = { piece: el.piece, class: el.class }
+        else piece = { piece: "", class: "" }
+      })
+
+      piece.dataNum = dataNum
+      pieces = [...pieces, piece]
+    }
+    generateColums(pieces)
   }
 
   const generateColums = pieces => {
     // return array lenght=63 con divs ya armados
+
+    setColumns([
+      ...columns,
+      pieces.map(el => (
+        <div key={el.dataNum} data-num={el.dataNum} className={el.class}>
+          {el.piece}
+        </div>
+      )),
+    ])
   }
 
   const generateRows = () => {
+    let index = rows.length * 8
+    isWhite ? setIsWhite(false) : setIsWhite(true)
+    setRows(rows + 1)
     //return columns while
     //return array con 8 rows
 
-    isWhite ? setIsWhite(false) : setIsWhite(true)
+    let rowColumns = []
+    while (rowColumns.length !== 7) {
+      rowColumns.push(columns[index])
+      index++
+    }
+
+    return (
+      <article
+        key={`row-${rows.length}`}
+        className={`row row-${isWhite ? "white" : "black"}`}>
+        {rowColumns.map(el => el)}
+      </article>
+    )
   }
 
   useEffect(() => {
     reFillPiece()
   }, [])
 
-  return <>{rows.length === 63 || generateRows()}</>
+  return <>{rows === 8 || generateRows()}</>
 }
 
 export default BoardGenerator
